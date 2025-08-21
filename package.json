@@ -1,0 +1,14 @@
+{
+	"name": "openapi-tools",
+	"private": true,
+	"scripts": {
+		"fix-elysia-openapi": "bun run fix-elysia-openapi.js",
+		"extract-openapi-schemas": "bun run extract-openapi-schemas.js"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	}
+}
