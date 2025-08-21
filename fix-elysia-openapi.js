@@ -182,10 +182,13 @@ const rules = [
         const isNull = data.length === 2 && data.some((item) => item.type === "null");
         if (isNull) {
           const typeObj = data.find((item) => item.type !== "null");
-          return {
-            type: typeObj.type,
-            nullable: true,
-          };
+          if (typeObj.type) {
+            return {
+              type: typeObj.type,
+              nullable: true,
+            };
+          }
+          return { ...typeObj, nullable: true };
         }
         const isOne = data.length === 1;
         if (isOne) {
@@ -241,7 +244,8 @@ function removeMultipartAndTextPlainFields(obj) {
       const data = rule.convert(obj[key]);
       const appendData = rule.append ? rule.append(obj[key]) : undefined;
       if (appendData) {
-        Object.assign(obj, appendData);
+        const fixAppendData = removeMultipartAndTextPlainFields(appendData);
+        Object.assign(obj, fixAppendData);
       }
       if (data) {
         obj[key] = removeMultipartAndTextPlainFields(data);
