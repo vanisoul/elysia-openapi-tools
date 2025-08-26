@@ -182,7 +182,7 @@ const rules = [
         const isNull = data.length === 2 && data.some((item) => item.type === "null");
         if (isNull) {
           const typeObj = data.find((item) => item.type !== "null");
-          if (typeObj.type) {
+          if (typeObj.type && typeObj.type !== "object") {
             return {
               type: typeObj.type,
               nullable: true,
